@@ -84,12 +84,13 @@ export const productRouter: Router = (() => {
     validateRequest(productFilterWithUserIdSchema),
     async (req: Request, res: Response) => {
       const userId = (
-        req?.user?.role === UserRole.ADMIN && req.query.userId
-          ? Number(req.query.userId) === 0
+        req?.user?.role === UserRole.ADMIN
+          ? Number(req.query.userId) === 0 || !req.query.userId
             ? null
             : req.query.userId
-          : null
+          : req?.user?.id
       ) as string;
+
       const { page, pageSize, searchName, searchSku, minPrice, maxPrice } = req.query;
       const filterOptions = {
         searchName: searchName?.toString(),
