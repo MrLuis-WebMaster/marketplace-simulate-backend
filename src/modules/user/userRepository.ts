@@ -1,3 +1,5 @@
+import { Op } from 'sequelize';
+
 import { hashPassword } from '@/common/utils/auth';
 import { UserEntity, UserRole } from '@/database/entity/user.entity';
 
@@ -6,10 +8,12 @@ export const userRepository = {
     name,
     password,
     email,
+    role,
   }: {
     name: string;
     password: string;
     email: string;
+    role: UserRole;
   }): Promise<boolean | null> => {
     try {
       const hashedPassword = await hashPassword(password);
@@ -17,7 +21,7 @@ export const userRepository = {
         name,
         password: hashedPassword,
         email,
-        role: UserRole.SELLER,
+        role,
       });
       return true;
     } catch (error) {
@@ -45,7 +49,7 @@ export const userRepository = {
     try {
       const sellers = await UserEntity.findAll({
         where: {
-          role: UserRole.SELLER,
+          [Op.or]: [{ role: UserRole.SELLER }, { role: UserRole.ADMIN }],
         },
         attributes: {
           exclude: ['createdAt', 'updatedAt', 'password', 'role'],

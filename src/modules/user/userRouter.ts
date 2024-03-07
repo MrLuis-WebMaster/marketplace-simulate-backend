@@ -40,6 +40,31 @@ export const userRouter: Router = (() => {
     handleServiceResponse(serviceResponse, res);
   });
 
+  userRegistry.registerPath({
+    method: 'post',
+    path: '/customer-register',
+    tags: ['User'],
+    request: {
+      body: {
+        content: {
+          'application/json': {
+            schema: UserCreateSchema,
+          },
+        },
+      },
+    },
+    responses: {
+      [StatusCodes.CREATED]: {
+        description: 'Return true',
+      },
+    },
+  });
+
+  router.post('/customer-register', validateRequest(UserCreateSchema), async (req: Request, res: Response) => {
+    const serviceResponse = await userService.createCustomer(req.body);
+    handleServiceResponse(serviceResponse, res);
+  });
+
   //private route
 
   router.use(authenticateUser);
