@@ -22,6 +22,10 @@ Install dependencies
 ```bash
   npm install
 ```
+Copy the .env.template file to create a new .env file and add the necessary environment variable values.
+
+Open the .env file and add the corresponding values.
+
 
 Start the server prod mode
 
@@ -58,6 +62,7 @@ To run tests coverage, run the following command
 - jsonwebtoken
 - Zod
 - Swagger
+- Railway (Deployment)
 - Other relevant technologies used in your project
 
 ## API Documentation
