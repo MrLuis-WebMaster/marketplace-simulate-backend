@@ -75,15 +75,15 @@ Explore the live demo of the marketplace application at:
 
 ### Admin User
 - Email: admin@example.com
-- Password: admin123
+- Password: Admin123,
 - Role: ADMIN
 
 ### Seller User
 - Email: seller@example.com
-- Password: seller123
+- Password: Seller1234,
 - Role: SELLER
 
 ### Customer User
 - Email: customer@example.com
-- Password: customer123
+- Password: Customer123,
 - Role: CUSTOMER
