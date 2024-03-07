@@ -1,5 +1,6 @@
 import { OpenAPIRegistry } from '@asteasolutions/zod-to-openapi';
 import express, { Request, Response, Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 
 import { createApiResponse } from '@/api-docs/openAPIResponseBuilders';
 import authenticateUser from '@/common/middleware/authenticateUser';
@@ -55,11 +56,14 @@ export const productRouter: Router = (() => {
         },
       },
     },
-    responses: createApiResponse(productSchema, 'Success'),
+    responses: {
+      [StatusCodes.OK]: {
+        description: 'Return a boolean',
+      },
+    },
   });
 
   router.post('/create', routeWithRoles(), validateRequest(productSchema), async (req: Request, res: Response) => {
-    console.log(req.user);
     const serviceResponse = await productService.createProduct(req.body, req?.user?.id);
     handleServiceResponse(serviceResponse, res);
   });
@@ -79,9 +83,13 @@ export const productRouter: Router = (() => {
     routeWithRoles(),
     validateRequest(productFilterWithUserIdSchema),
     async (req: Request, res: Response) => {
-      const userId = req?.user?.role === UserRole.ADMIN && req.query.userId ? req.query.userId : req?.user?.id;
+      const userId =
+        req?.user?.role === UserRole.ADMIN && req.query.userId
+          ? Number(req.query.userId) === 0
+            ? req.user.id
+            : req.query.userId
+          : req?.user?.id;
       const { page, pageSize, searchName, searchSku, minPrice, maxPrice } = req.query;
-
       const filterOptions = {
         searchName: searchName?.toString(),
         searchSku: searchSku?.toString(),

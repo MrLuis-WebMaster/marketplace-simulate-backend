@@ -52,7 +52,11 @@ export const productService = {
         );
       }
       if (role === UserRole.ADMIN) {
-        const products = await productRepository.getAllProductsByUser(undefined, filterOptions, paginationOptions);
+        const products = await productRepository.getAllProductsByUser(
+          userId || undefined,
+          filterOptions,
+          paginationOptions
+        );
         return new ServiceResponse<ProductResponse | null>(
           ResponseStatus.Success,
           'List Products',
