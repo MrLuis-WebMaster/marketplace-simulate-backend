@@ -63,13 +63,13 @@ To run tests coverage, run the following command
 ## API Documentation
 For detailed API documentation, refer to the OpenAPI documentation available at:
 
-[API Documentation](https://tu_url_de_documentacion)
+[API Documentation](https://marketplace-simulate-backend-production.up.railway.app/docs/)
 
 
 ## Live Demo
 Explore the live demo of the marketplace application at:
 
-[DEMO](https://tu_url_de_documentacion)
+[DEMO](https://marketplace-simulate-frontend.vercel.app/)
 
 ## User Credentials (Live Demo)
 
