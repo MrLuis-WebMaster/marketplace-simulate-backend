@@ -5,7 +5,7 @@ export const commonValidations = {
     .string()
     .refine((data) => !isNaN(Number(data)), 'ID must be a numeric value')
     .transform(Number)
-    .refine((num) => num > 0, 'ID must be a positive number'),
+    .refine((num) => num >= 0, 'ID must be a positive number'),
   itemInteger: z
     .string()
     .refine((val) => /^[0-9]+$/.test(val), { message: 'This item must be a valid non-negative integer' })
