@@ -10,6 +10,7 @@ const sequelize = new Sequelize({
   host: env.DB_HOST,
   username: env.DB_USERNAME,
   password: env.DB_PASSWORD,
+  port: env.DB_PORT,
   dialect: 'postgres',
   models: [UserEntity, ProductEntity],
 });

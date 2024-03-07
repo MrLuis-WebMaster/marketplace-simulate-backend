@@ -14,6 +14,7 @@ export const env = cleanEnv(process.env, {
   DB_HOST: str(),
   DB_USERNAME: str(),
   DB_PASSWORD: str(),
+  DB_PORT: num(),
   JWT_SECRET_KEY: str(),
   JWT_EXPIRATION: str(),
 });
