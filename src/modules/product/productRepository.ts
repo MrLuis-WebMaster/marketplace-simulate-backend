@@ -9,8 +9,8 @@ import { PaginationOptions, ProductFilter, ProductResponse } from './productInte
 const userIncludeAttributes = ['name', 'email'];
 const productExcludeAttributes = ['createdAt', 'updatedAt'];
 
-async function applyUserFilter(userId: number, queryOptions: FindAndCountOptions<any>): Promise<void> {
-  const user = await userRepository.getUserById(userId);
+async function applyUserFilter(userId: number | string, queryOptions: FindAndCountOptions<any>): Promise<void> {
+  const user = await userRepository.getUserById(Number(userId));
   if (!user) {
     throw new Error('User not found');
   }
@@ -84,7 +84,7 @@ export const productRepository = {
     }
   },
   getAllProductsByUser: async (
-    userId?: number,
+    userId?: number | null | string,
     filterOptions: ProductFilter = {},
     paginationOptions: PaginationOptions = {}
   ): Promise<ProductResponse | null> => {
@@ -96,6 +96,13 @@ export const productRepository = {
         limit: pageSize,
         offset: (page - 1) * pageSize,
       };
+
+      if (!userId) {
+        queryOptions.include = {
+          model: UserEntity,
+          attributes: userIncludeAttributes,
+        };
+      }
 
       if (userId) {
         await applyUserFilter(userId, queryOptions);

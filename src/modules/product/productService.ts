@@ -37,7 +37,7 @@ export const productService = {
   },
   getAllProductsByUser: async (
     role: string,
-    userId: number,
+    userId?: number | null | string,
     filterOptions: ProductFilter = {},
     paginationOptions: PaginationOptions = {}
   ) => {
