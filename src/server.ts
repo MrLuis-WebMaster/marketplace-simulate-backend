@@ -31,7 +31,7 @@ app.use(requestLogger());
 
 // Routes
 app.use('/health-check', healthCheckRouter);
-app.use('/users', userRouter);
+app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/product', productRouter);
 
